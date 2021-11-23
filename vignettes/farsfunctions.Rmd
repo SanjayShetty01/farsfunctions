@@ -1,0 +1,61 @@
+---
+title: "farsfunction"
+author: "Sanjaya J Shetty"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{farsfunction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The functions in the package will be using data from the US National Highway Traffic Safety Administration's Fatality Analysis Reporting System, which is a nationwide census providing the American public yearly data regarding fatal injuries suffered in motor vehicle traffic crashes
+
+To install package use devtools package and download the package from Github repo
+
+```{r, eval=FALSE}
+devtools::install_github('SanjayShetty01/farsfunctions')
+```
+
+## Load the package
+
+```{r setup, message=FALSE}
+library(farsfunctions)
+library(dplyr)
+```
+
+
+## Load the Dataset
+```{r, warning=FALSE}
+data = system.file('extdata', "accident_2013.csv.bz2", package = 'farsfunctions')
+
+accidentData = fars_read(data)
+```
+
+the function `make_filename` lets you create a filename to load  the data
+
+```{r}
+make_filename(2013)
+```
+
+getting months and years info.
+```{r}
+accidentDataForNyears = fars_read_years(c(2013,2014))
+
+head(accidentDataForNyears[[1]])
+```
+
+getting the summary of data for counting the number of accident
+```{r, warning=FALSE, eval=FALSE}
+year = 2013
+fars_summarize_years(year)
+
+
+```
+
+Visualsing the place where the accident occurred. 
+```{r, warning=FALSE,eval=FALSE}
+state = 1
+year = 2013
+fars_map_state(state, year)
+```
